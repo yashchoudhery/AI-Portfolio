@@ -24,7 +24,7 @@ app = FastAPI(title="AI Portfolio")
 
 # NEW: Initialize Resume AI Agent once when server starts
 print("🚀 Initializing Resume AI Agent...")
-resume_agent = ResumeAIAgent("./MT24147_Yash choudhery.docx")
+resume_agent = ResumeAIAgent("./resume.txt")
 print("✅ Resume Agent ready!")
 
 
@@ -38,35 +38,78 @@ def chat_endpoint(request: RequestState):
         raise HTTPException(status_code=400, detail="Invalid model name")
 
     llm_id = request.model_name
-    query = request.messages[0] if request.messages else ""
-    query.append("do not include (According to the, Yash Choudhery's resume ) line in response instead you can write Yash have skills ... yash has qualification ...." )
-
+    original_query = request.messages[0] if request.messages else ""
     allow_search = request.allow_search
-    system_prompt = request.prompt
     provider = request.model_provider
 
-    # NEW: Use resume agent if available and query is resume-related
-    if resume_agent and resume_agent.resume_processor:
-        from ai_agent import is_resume_related_query
+    # Add instructions to make AI respond in first person (as Yash)
+    instruction = """
+    Important: Respond as if you ARE Yash Choudhery answering in first person.
+    Do NOT write phrases like:
+    - "According to Yash Choudhery's resume..."
+    - "According to the provided information..."
+    - "Yash's qualifications are..."
+    - "His skills include..."
 
-        if is_resume_related_query(query):
-            # Use RAG for resume questions
-            response = get_response_from_ai_agent(
-                llm_id, query, allow_search, system_prompt, provider,
-                resume_processor=resume_agent.resume_processor  # Pass resume processor
-            )
-        else:
-            # Original logic for non-resume questions
-            response = get_response_from_ai_agent(
-                llm_id, query, allow_search, system_prompt, provider
-            )
-    else:
-        # Fallback to original if no resume available
+    Instead, write in first person:
+    - "My qualifications are..."
+    - "I have skills in..."
+    - "I worked on..."
+    - "My projects include..."
+
+    Respond naturally as Yash speaking about himself.
+    """
+
+    # Combine instruction with original query
+    query = f"{instruction}\n\nUser question: {original_query}"
+
+    # System prompt for first-person responses
+    # Strong grounding + first-person + brevity + safety
+    grounding_instruction = (
+        "You are Yash Choudhery. Answer in the FIRST PERSON (use 'I', 'my', etc.). "
+        "STRICTLY use only information present in the provided resume context. "
+        "Do NOT invent, infer, or add facts not present in the resume. "
+        "If the requested fact is NOT in the resume, reply exactly: \"I don't have that information.\". "
+        "Keep the answer concise (max 120 words). "
+        "When you quote a fact from the resume, keep it brief and factual — do not add extra context."
+    )
+
+    # Final system prompt sent to the model
+    system_prompt = grounding_instruction
+
+    if not query.strip():
+        raise HTTPException(status_code=400, detail="Query cannot be empty")
+
+    # NEW: Stronger resume checking
+    from ai_agent import is_resume_related_query
+
+    is_resume_q = is_resume_related_query(query)
+    print(f"🔍 Query: '{query[:50]}...'")
+    print(f"📋 Is Resume Related: {is_resume_q}")
+
+    # If NOT resume related, return redirect message immediately
+    if not is_resume_q:
+        return {
+            "response": "I can only answer questions about Yash Choudhery's professional background, skills, experience, and qualifications. Please ask about:\n\n• Work experience and roles\n• Technical skills and programming languages\n• Educational background\n• Projects and achievements\n• Professional qualifications",
+            "is_resume_related": False
+        }
+
+    # If IS resume related, use RAG
+    if resume_agent and resume_agent.resume_processor:
         response = get_response_from_ai_agent(
-            llm_id, , allow_search, system_prompt, provider
+            llm_id, query, False, system_prompt, provider,
+            resume_processor=resume_agent.resume_processor
+        )
+    else:
+        response = get_response_from_ai_agent(
+            llm_id, query, allow_search, system_prompt, provider
         )
 
-    return response
+    return {
+        "response": response,
+        "is_resume_related": True
+    }
+
 
 @app.get("/health")
 def health_check():

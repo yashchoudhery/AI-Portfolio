@@ -25,7 +25,7 @@ OPENAI_API_KEY=os.environ['OPENAI_API_KEY']
 
 
 # NEW: Resume configuration
-RESUME_PDF_PATH = "./MT24147_Yash choudhery.docx"  # ← CHANGE THIS TO YOUR ACTUAL RESUME PATH
+RESUME_PDF_PATH = "./resume.txt"  # ← CHANGE THIS TO YOUR ACTUAL RESUME PATH
 
 
 # step 2
@@ -81,10 +81,22 @@ class ResumeProcessor:
             elif self.resume_path.endswith('.pdf'):
                 print("Loading PDF...")
                 loader = PyPDFLoader(self.resume_path)
+            elif self.resume_path.endswith('.txt'):
+                print("Loading text file...")
+                from langchain_community.document_loaders import TextLoader
+                loader = TextLoader(self.resume_path)
             else:
-                raise ValueError("Resume must be .pdf, .doc, or .docx file")
+                raise ValueError("Resume must be .pdf, .doc, .docx, or .txt file")
 
             documents = loader.load()
+            print("\n" + "=" * 50)
+            print("🔍 DEBUGGING: Extracted Content")
+            print("=" * 50)
+            for i, doc in enumerate(documents):
+                print(f"\n--- Page/Section {i + 1} ---")
+                print(doc.page_content[:500])  # Print first 500 characters
+                print("...")
+            print("=" * 50 + "\n")
 
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=500,
@@ -114,9 +126,54 @@ class ResumeProcessor:
 
 
 def is_resume_related_query(query):
-    keywords = ["experience", "work", "job", "skills", "education", "background",
-                "projects", "resume", "cv", "programming", "about you"]
-    return any(keyword in query.lower() for keyword in keywords)
+    """
+    Strict checking for resume-related queries.
+    Returns True ONLY for professional/career questions.
+    """
+    query_lower = query.lower()
+
+    # Resume-specific keywords
+    resume_keywords = [
+        # Personal/Background
+        "yash", "choudhery", "your", "you", "tell me about",
+        "who are you", "about yourself", "introduce yourself",
+
+        # Career/Work
+        "experience", "work", "job", "career", "role", "position",
+        "responsibility", "worked", "working", "employment",
+
+        # Skills/Technical
+        "skills", "technical", "programming", "language", "framework",
+        "technology", "tool", "software", "expertise", "proficiency",
+        "know", "familiar", "python", "java", "javascript",
+
+        # Education
+        "education", "degree", "university", "college", "school",
+        "study", "studied", "certification", "qualified",
+
+        # Projects/Achievements
+        "project", "projects", "achievement", "accomplishment",
+        "portfolio", "built", "created", "developed",
+
+        # Resume/CV
+        "resume", "cv", "qualification", "background", "profile"
+    ]
+
+    # Check if ANY keyword matches
+    has_resume_keyword = any(keyword in query_lower for keyword in resume_keywords)
+
+    # Exclude common non-resume questions (blocklist)
+    non_resume_patterns = [
+        "weather", "time", "date", "news", "stock", "price",
+        "joke", "story", "recipe", "cook", "food",
+        "movie", "song", "game", "sports", "politics",
+        "calculate", "math", "solve", "translate"
+    ]
+
+    has_non_resume = any(pattern in query_lower for pattern in non_resume_patterns)
+
+    # Return True ONLY if has resume keyword AND doesn't have non-resume patterns
+    return has_resume_keyword and not has_non_resume
 
 
 def get_response_from_ai_agent(llm_id, query, allow_search, system_prompt, provider, resume_processor=None):
@@ -135,10 +192,18 @@ def get_response_from_ai_agent(llm_id, query, allow_search, system_prompt, provi
 
         if context:
             rag_prompt = ChatPromptTemplate.from_messages([
-                ("system", """You are an AI representing a job candidate. 
-                Answer based on their resume.
+                ("system", """You are Yash Choudhery answering questions about yourself.
 
-                Context: {context}"""),
+                IMPORTANT: Always respond in FIRST PERSON using 'I', 'my', 'me'.
+                Never say "According to the resume" or "Yash has" or "His skills".
+
+                Examples of correct responses:
+                - "I have experience in Python and Java..."
+                - "My qualifications include..."
+                - "I worked on a project where..."
+
+                Context from my background:
+                {context}"""),
                 ("human", "{input}")
             ])
 

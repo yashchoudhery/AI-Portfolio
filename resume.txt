@@ -2,7 +2,7 @@ YASH CHOUDHERY
 MT24147, Email: yash24147@iiitd.ac.in
 DOB: November 12, 1998
 Address: G904, Uninav Heights, Raj Nagar Extension, Ghaziabad, U.P., India 201017
-
+-------------------------
 Education
 
 
@@ -22,7 +22,7 @@ Delhi Institute Of Tool Engineering, New Delhi
 Diploma(Tool and Die Making)
 2015 – 2019
 Percentage:68%
-
+------------------------
 Skills
 
 
@@ -43,7 +43,7 @@ Git/GitHub, Docker, Swagger, REST APIs, JUnit, Postman, CI/CD basics, VS Code, I
 
 Technical Electives
 Machine Learning, Artificial Intelligence, Deep Learning, Data Science, Bayesian Machine Learning
-
+-----------------
 
 Experience
 
@@ -55,7 +55,7 @@ Tech Stack: Python, PyTorch, TorchAudio, HuggingFace Transformers, ECAPA-TDNN, R
 
 Wipro Limited, Greater Noida (Project Engineer, Java Full Stack Developer)   (Jul,22 –Oct,24)
 Enhanced and expanded core functionality of the Airline application by implementing multiple new features. Optimised the existing codebase for improved application performance and maintainability. Improved database schema and queries to ensure efficient data handling and faster response times.Resolved multiple Jira tickets daily, including bug fixes, feature enhancements, and performance improvements.Collaborated with cross-functional teams (developers, testers, and business analysts) to ensure smooth project delivery. Delivered high-quality, production-ready code while adhering to best practices and coding standards.
-
+--------------------------
 Internship
 
 Software Engineer Intern at Persistent Limited, Pune (Feb,22 –Jul,24)
@@ -66,7 +66,7 @@ Software Engineer Intern at India Meteorological Department, New  (Aug,21 –Oct
 Developed a geo-spatial web application with layered visualization of states, rivers, and regions using Python, GeoDjango, and GeoServer. Built interactive maps with HTML/CSS for efficient rendering and user-friendly exploration of spatial data.
 
 
-
+-------------------------------------
 Projects
 
 Vertical Federated Learning for Keyword Spotting & Speaker Verification.
@@ -99,7 +99,7 @@ Developed a project simulating Wi-Fi 4, 5, and 6 protocols to analyze throughput
 Tech Stack: C++, OOPD, Git, Linux.
 
 
-
+--------------------------------------
 
 
 Awards and Achievements

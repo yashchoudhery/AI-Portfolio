@@ -365,14 +365,21 @@ if st.button("🔍 Search", key="search_btn"):
                 response = requests.post(API_URL, json=payload)
                 response_data = response.json()
 
-                if response.status_code != 200:
-                    if "error" in response_data:
-                        st.error(f"❌ {response_data['error']}")
-                    else:
-                        st.markdown(f'<div class="response-box">{response_data}</div>', unsafe_allow_html=True)
-                else:
+                if response.status_code == 200:
+                    # SUCCESS - Extract just the response text
+                    ai_response = response_data.get('response', '')
+                    is_resume = response_data.get('is_resume_related', False)
+
                     st.markdown("### 🎯 Response")
-                    st.markdown(f'<div class="response-box">{response_data}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="response-box">{ai_response}</div>', unsafe_allow_html=True)
+
+                    # Optional: Show if resume-related (for debugging)
+                    # st.caption(f"Resume-related: {is_resume}")
+                else:
+                    # ERROR
+                    error_msg = response_data.get('detail', response_data.get('error', 'Unknown error'))
+                    st.error(f"❌ {error_msg}")
+
             except Exception as e:
                 st.error(f"❌ Connection error: {str(e)}")
     else:
