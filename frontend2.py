@@ -10,7 +10,7 @@ st.set_page_config(
 
 # Initialize session state for theme and query
 if 'theme' not in st.session_state:
-    st.session_state.theme = 'light'
+    st.session_state.theme = 'dark'
 # keep a separate logical var if you want, but ensure the widget key exists
 if 'query_input' not in st.session_state:
     st.session_state.query_input = ''    # this is the widget key used below
@@ -289,9 +289,9 @@ with col2:
 # Header section
 st.markdown("""
     <div class="portfolio-header">
-    <h1 class="portfolio-title"> Hello, I'm </h1>
+         <h1 class="portfolio-title"> Hello, I'm </h1>
         <h1 class="portfolio-title">✨Yash Choudhery</h1>
-        <p class="portfolio-subtitle">Ask me anything about my skills, qualifications & experience!</p>
+        <p class="portfolio-title">Ask me anything about my skills, qualifications & experience!</p>
           
     </div>
 """, unsafe_allow_html=True)
