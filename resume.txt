@@ -1,0 +1,127 @@
+YASH CHOUDHERY
+MT24147, Email: yash24147@iiitd.ac.in
+DOB: November 12, 1998
+Address: G904, Uninav Heights, Raj Nagar Extension, Ghaziabad, U.P., India 201017
+
+Education
+
+
+Indraprastha Institute of Information Technology, Delhi
+M.Tech(CSE)
+2024 – 2026
+CGPA:7.06
+(till 2th Semester)
+
+
+Dr. Akhilesh Das Gupta Institute of Professional Studies, New Delhi, Delhi
+B. Tech(IT)
+2019 – 2022
+Percentage:88%
+
+Delhi Institute Of Tool Engineering, New Delhi
+Diploma(Tool and Die Making)
+2015 – 2019
+Percentage:68%
+
+Skills
+
+
+Expertise Area
+Artificial Intelligence, Data Science, Machine Learning, Deep Learning, Natural Language Processing, Full Stack Web Development (Java), Information Integration, Data Warehousing & Data Management.
+
+Programming Language
+Python, Java, JavaScript, C/C++
+
+Frameworks & Libraries
+PyTorch, TensorFlow, scikit-learn, NumPy, Pandas, Matplotlib, Angular, React, Spring Boot, Express.js
+
+Databases & Cloud
+MySQL, MongoDB, Azure
+
+Tools and Technologies
+Git/GitHub, Docker, Swagger, REST APIs, JUnit, Postman, CI/CD basics, VS Code, IntelliJ IDEA, Jupyter Notebook
+
+Technical Electives
+Machine Learning, Artificial Intelligence, Deep Learning, Data Science, Bayesian Machine Learning
+
+
+Experience
+
+Post-Graduate Researcher, Infosys Centre for Artificial Intelligence, IIIT-Delhi  (Jan,25 -Present)
+Designed and implemented a privacy-preserving Vertical Federated Learning (VFL) framework for speech tasks (Keyword Spotting & Speaker Verification), enabling multi-party collaboration without sharing raw audio data. Proposed novel speech-specific feature partitioning strategies – Multi-Band Spectrogram Splitting (frequency domain) and Temporal Sound Shredding (time domain) – achieving strong privacy guarantees while retaining discriminative cues. Benchmarked multiple state-of-the-art models in the VFL setting (MatchBoxNet, BC-ResNet for KWS; ECAPA-TDNN, RawNet-3 for SV) and achieved 92.4% KWS accuracy and 3.79% SV EER, comparable to centralized baselines. Evaluated homogeneous vs heterogeneous client architectures, uncovering key challenges in gradient alignment, feature integration, and embedding stability across distributed clients. Conducted large-scale experiments on SpeechCommands-V2 (105K audio clips) and VoxCeleb2 (1M utterances), simulating real-world deployment conditions with heterogeneous models and varied splitting strategies. Performed representation analysis (t-SNE) and convergence studies, highlighting stability differences between homogeneous and heterogeneous federated setups.
+Tech Stack: Python, PyTorch, TorchAudio, HuggingFace Transformers, ECAPA-TDNN, RawNet-3, MatchBoxNet, BC-ResNet, CUDA, Git/GitHub, Linux.
+
+
+
+Wipro Limited, Greater Noida (Project Engineer, Java Full Stack Developer)   (Jul,22 –Oct,24)
+Enhanced and expanded core functionality of the Airline application by implementing multiple new features. Optimised the existing codebase for improved application performance and maintainability. Improved database schema and queries to ensure efficient data handling and faster response times.Resolved multiple Jira tickets daily, including bug fixes, feature enhancements, and performance improvements.Collaborated with cross-functional teams (developers, testers, and business analysts) to ensure smooth project delivery. Delivered high-quality, production-ready code while adhering to best practices and coding standards.
+
+Internship
+
+Software Engineer Intern at Persistent Limited, Pune (Feb,22 –Jul,24)
+Developed a comprehensive healthcare web application using Angular and Spring Boot, developed secure admin and employee authentication systems with role-based access control. Designed and implemented modular Angular components to enhance application maintainability. Built and integrated REST APIs for patient data, appointment scheduling, and employee workflows. Improved database queries and schema design to ensure efficient data management and retrieval. Participated in Agile development process, handling Jira tickets for bug fixes and feature enhancements.Conducted unit testing using JUnit and Postman to validate APIs and application functionalities. Collaborated with senior developers and mentors to learn best practices in enterprise web application development.
+
+
+Software Engineer Intern at India Meteorological Department, New  (Aug,21 –Oct,21)
+Developed a geo-spatial web application with layered visualization of states, rivers, and regions using Python, GeoDjango, and GeoServer. Built interactive maps with HTML/CSS for efficient rendering and user-friendly exploration of spatial data.
+
+
+
+Projects
+
+Vertical Federated Learning for Keyword Spotting & Speaker Verification.
+Guide: Dr. Vinayak Abrol
+
+
+(Jan,25 – Present)
+
+
+Designed and implemented a privacy-preserving Vertical Federated Learning (VFL) framework for speech tasks, enabling multi-party training without raw audio sharing. Proposed speech-optimised feature partitioning (Multi-Band Spectrogram Splitting, Temporal Sound Shredding), boosting privacy while retaining task-relevant cues. Benchmarked SOTA models (MatchBoxNet, BC-ResNet for KWS; ECAPA-TDNN, RawNet-3 for SV) under homogeneous and heterogeneous client setups, achieving 92.4% KWS accuracy and 3.79% SV EER, comparable to centralized baselines. Conducted large-scale experiments on SpeechCommands-V2 (105K clips) and VoxCeleb2 (1M utterances), simulating real-world federated deployment with distributed architectures.
+Tech Stack: Python, PyTorch, TorchAudio, HuggingFace Transformers, MatchBoxNet, BC-ResNet, ECAPA-TDNN, RawNet-3, CUDA, Git/GitHub, Linux.
+Single Object Tracking
+Guide: Dr. Vinayak Abrol
+(Aug,24 – Dec,24)
+Team Size: 4
+Delivered a real-time object tracker with camera-motion compensation using ORB-based affine alignment, sustaining 30 FPS on 1080p video streams. Integrated multi-scale search windows and hybrid descriptors (HOG, LBP, SIFT, ORB), boosting robustness against variations in shape, texture, and scale. Applied ensemble regressors (Linear Regression, Random Forest) for centroid and bounding-box prediction, achieving 85% IoU, R² = 0.92, and reducing MAE by 20%. Owned the end-to-end delivery cycle: dataset curation, hyper-parameter sweeps, performance profiling, Git-based code reviews, deployment, and post-release support.
+Tech Stack: Python, OpenCV, HOG, LBP, SIFT, ORB, Linear Regression, Random Forest, NumPy, SciPy, Matplotlib, Git, Linux.
+
+
+Web-Based Conferencing Application
+(Apr,22 – Jun,22)
+Built a Zoom-like video conferencing platform with real-time communication, chat, and screen sharing. Integrated an automatic attendance tracking system, streamlining participant management and reducing manual effort. Designed a scalable, feature-rich architecture to enhance virtual meeting efficiency and user experience.
+
+
+
+WiFi simulator
+Guide: Dr. Arani Bhattacharya
+(Nov 24 – Nov 24)
+Developed a project simulating Wi-Fi 4, 5, and 6 protocols to analyze throughput, latency, and network performance. Applied object-oriented design principles to model communication layers and ensure modular, extensible architecture. Provided comparative insights into protocol efficiency and scalability under varying network conditions.
+Tech Stack: C++, OOPD, Git, Linux.
+
+
+
+
+
+Awards and Achievements
+Gate 2024 Qualified
+Spot Award for good performance
+
+
+
+
+Interests and Hobbies
+Music
+Gymnasium
+Swimming
+Traveling
+Tracking
+
+
+
+
+Declaration: The above information is correct to the best of my knowledge.
+Yash Choudhery
+Date: July 05, 2025
+
+
+
