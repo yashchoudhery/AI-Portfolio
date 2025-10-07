@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+from pathlib import Path
 
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
@@ -17,7 +19,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
-
+env_path = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path=env_path)
 #   step1
 GROQ_API_KEY = os.environ['GROQ_API_KEY']
 TAVILY_API_KEY=os.environ['TAVILY_API_KEY']

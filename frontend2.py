@@ -1,18 +1,20 @@
 import streamlit as st
 import requests
 
-# Initialize session state for theme and query
-if 'theme' not in st.session_state:
-    st.session_state.theme = 'light'
-if 'query_text' not in st.session_state:
-    st.session_state.query_text = ''
-
-# Page configuration
+# Page configuration — MUST be the very first Streamlit call
 st.set_page_config(
     page_title="Yash Choudhery - Portfolio",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+
+# Initialize session state for theme and query
+if 'theme' not in st.session_state:
+    st.session_state.theme = 'light'
+# keep a separate logical var if you want, but ensure the widget key exists
+if 'query_input' not in st.session_state:
+    st.session_state.query_input = ''    # this is the widget key used below
+
 
 
 # Custom CSS for beautiful styling
@@ -307,23 +309,24 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown('<div class="feature-card">', unsafe_allow_html=True)
     if st.button("🎓\n\n**Qualifications**", key="qual_btn", help="Click to ask about qualifications"):
-        st.session_state.query_text = "What are Yash Choudhery's educational qualifications and certifications?"
+        st.session_state['query_input'] = "What are Yash Choudhery's educational qualifications and certifications?"
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
     st.markdown('<div class="feature-card">', unsafe_allow_html=True)
     if st.button("💻\n\n**Technical Skills**", key="skills_btn", help="Click to ask about technical skills"):
-        st.session_state.query_text = "What are Yash Choudhery's technical skills and areas of expertise?"
+        st.session_state['query_input'] = "What are Yash Choudhery's technical skills and areas of expertise?"
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
 with col3:
     st.markdown('<div class="feature-card">', unsafe_allow_html=True)
     if st.button("🚀\n\n**Projects**", key="proj_btn", help="Click to ask about projects"):
-        st.session_state.query_text = "What projects has Yash Choudhery worked on and what were his contributions?"
+        st.session_state['query_input'] = "What projects has Yash Choudhery worked on and what were his contributions?"
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -336,17 +339,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 query = st.text_area(
-    "",
+    "Your Query",   # non-empty label to silence the accessibility warning
     height=150,
-    value=st.session_state.query_text,
+    value=st.session_state.get('query_input', ''),
     placeholder="💡 Try asking: What are Yash's technical skills? What projects has he worked on? What is his educational background?",
     label_visibility="collapsed",
     key="query_input"
 )
 
+
 # Update session state when user types manually
-if query != st.session_state.query_text:
-    st.session_state.query_text = query
+if query != st.session_state.get('query_input', ''):
+    st.session_state['query_input'] = query
+
 
 # Search button
 if st.button("🔍 Search", key="search_btn"):
