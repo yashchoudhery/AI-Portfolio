@@ -1,11 +1,4 @@
----
-title: AI Portfolio Backend
-emoji: 🤖
-colorFrom: blue
-colorTo: purple
-sdk: docker
-app_port: 7860
----
+
 
 
 # AI Portfolio Chatbot with RAG
