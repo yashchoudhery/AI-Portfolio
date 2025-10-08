@@ -1,3 +1,13 @@
+---
+title: AI Portfolio Backend
+emoji: 🤖
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
+---
+
+
 # AI Portfolio Chatbot with RAG
 
 A resume‑focused, first‑person Q&A chatbot that uses Retrieval‑Augmented Generation (RAG) to deliver accurate, grounded answers about skills, experience, education, and projects. Built with LangChain, FAISS, Sentence Transformers, FastAPI, Streamlit, and Groq for low‑latency inference.
