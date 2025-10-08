@@ -2,7 +2,12 @@
 .env.local
 .env.*.local
 *.env
+# Ensure your .gitignore includes:
 
+__pycache__/
+*.pyc
+.streamlit/secrets.toml
+.gitignore
 *.pdf
 *.docx
 *.doc

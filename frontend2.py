@@ -1,5 +1,8 @@
 import streamlit as st
 import requests
+import os
+# Replace hardcoded localhost with:
+API_URL = os.getenv("API_URL", "https://AiPorfolio.railway.app/chat")
 
 # Page configuration — MUST be the very first Streamlit call
 st.set_page_config(
