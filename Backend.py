@@ -137,4 +137,10 @@ def get_info():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=9999)
+    # uvicorn.run(app, host="127.0.0.1", port=9999)
+    import os
+
+    # Use PORT from environment variable or default to 9999 for local dev
+    port = int(os.environ.get("PORT", 9999))
+
+    uvicorn.run(app, host="0.0.0.0", port=port)
