@@ -11,11 +11,8 @@ st.set_page_config(
 # Initialize session state for theme and query
 if 'theme' not in st.session_state:
     st.session_state.theme = 'dark'
-# keep a separate logical var if you want, but ensure the widget key exists
 if 'query_input' not in st.session_state:
-    st.session_state.query_input = ''    # this is the widget key used below
-
-
+    st.session_state.query_input = ''
 
 # Custom CSS for beautiful styling
 def apply_custom_css():
@@ -29,8 +26,10 @@ def apply_custom_css():
         placeholder_color = "#a0aec0"
         button_gradient = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
         shadow = "0 10px 30px rgba(0,0,0,0.1)"
-        title_color = "#f7fafc"
+        title_color = "#2d3748"  # Changed to dark color for light theme
         card_hover_bg = "#f7fafc"
+        response_header_color = "#2d3748"  # For response header
+        cursor_color = "#2d3748"  # For text cursor
     else:
         bg_gradient = "linear-gradient(135deg, #1a202c 0%, #2d3748 100%)"
         card_bg = "#2d3748"
@@ -41,8 +40,10 @@ def apply_custom_css():
         placeholder_color = "#718096"
         button_gradient = "linear-gradient(135deg, #4299e1 0%, #667eea 100%)"
         shadow = "0 10px 30px rgba(0,0,0,0.3)"
-        title_color = "#e2e8f0"
+        title_color = "#e2e8f0"  # Light color for dark theme
         card_hover_bg = "#4a5568"
+        response_header_color = "#e2e8f0"  # For response header
+        cursor_color = "#e2e8f0"  # For text cursor
 
     css = f"""
     <style>
@@ -78,7 +79,7 @@ def apply_custom_css():
         .portfolio-title {{
             font-size: 3.5rem;
             font-weight: 800;
-            color: {title_color};
+            color: {title_color} !important;
             margin-bottom: 0.5rem;
             margin-top: 0;
             padding-top: 0;
@@ -88,9 +89,30 @@ def apply_custom_css():
 
         .portfolio-subtitle {{
             font-size: 1.3rem;
-            color: {secondary_text};
+            color: {secondary_text} !important;
             font-weight: 300;
             animation: fadeInUp 1s ease;
+        }}
+
+        /* Fix for dynamic header text */
+        .dynamic-header h1 {{
+            color: {title_color} !important;
+            font-size: 3.5rem !important;
+            font-weight: 800 !important;
+            margin-bottom: 0.5rem !important;
+            margin-top: 0 !important;
+            text-align: center !important;
+            animation: fadeInDown 1s ease !important;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3) !important;
+        }}
+
+        .dynamic-header p {{
+            color: {title_color} !important;
+            font-size: 1.3rem !important;
+            font-weight: 300 !important;
+            text-align: center !important;
+            animation: fadeInUp 1s ease !important;
+            margin-bottom: 2rem !important;
         }}
 
         /* Query section */
@@ -112,7 +134,7 @@ def apply_custom_css():
             margin-right: 0.5rem;
         }}
 
-        /* Text area styling with visible text color */
+        /* Text area styling with visible text color and cursor */
         .stTextArea textarea {{
             background: {input_bg} !important;
             border: 2px solid #e2e8f0 !important;
@@ -121,6 +143,7 @@ def apply_custom_css():
             padding: 1rem !important;
             transition: all 0.3s ease !important;
             color: {input_text_color} !important;
+            caret-color: {cursor_color} !important;
         }}
 
         /* Placeholder color styling */
@@ -147,6 +170,7 @@ def apply_custom_css():
         .stTextArea textarea:focus {{
             border-color: #667eea !important;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+            caret-color: {cursor_color} !important;
         }}
 
         /* Button styling */
@@ -196,6 +220,23 @@ def apply_custom_css():
             border-left: 4px solid #667eea;
             animation: slideIn 0.5s ease;
             color: {text_color};
+        }}
+
+        /* Response header styling */
+        .response-header {{
+            color: {response_header_color} !important;
+            font-size: 1.5rem !important;
+            font-weight: 600 !important;
+            margin-bottom: 1rem !important;
+        }}
+
+        /* Fix markdown headers */
+        .stMarkdown h3 {{
+            color: {response_header_color} !important;
+        }}
+
+        .stMarkdown h1, .stMarkdown h2, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {{
+            color: {text_color} !important;
         }}
 
         /* Theme toggle button */
@@ -272,7 +313,6 @@ def apply_custom_css():
     """
     st.markdown(css, unsafe_allow_html=True)
 
-
 # Apply custom CSS
 apply_custom_css()
 
@@ -283,16 +323,12 @@ with col2:
         st.session_state.theme = 'dark' if st.session_state.theme == 'light' else 'light'
         st.rerun()
 
-# Main container
-
-
-# Header section
+# Header section with dynamic colors
 st.markdown("""
-    <div class="portfolio-header">
-         <h1 class="portfolio-title"> Hello, I'm </h1>
-        <h1 class="portfolio-title">✨Yash Choudhery</h1>
-        <p class="portfolio-title">Ask me anything about my skills, qualifications & experience!</p>
-          
+    <div class="dynamic-header">
+        <h1>Hello, I'm</h1>
+        <h1>✨Yash Choudhery</h1>
+        <p>Ask me anything about my skills, qualifications & experience!</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -327,7 +363,6 @@ with col3:
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-
 st.markdown("<br>", unsafe_allow_html=True)
 
 # Query section
@@ -338,20 +373,19 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+# Fixed text area - removed default value to avoid session state warning
 query = st.text_area(
-    "Your Query",   # non-empty label to silence the accessibility warning
+    "Your Query",
     height=150,
-    value=st.session_state.get('query_input', ''),
+    value=st.session_state.get('query_input',''),  # Use session state value directly
     placeholder="💡 Try asking: What are Yash's technical skills? What projects has he worked on? What is his educational background?",
     label_visibility="collapsed",
-    key="query_input"
+    key="query_input"  # Changed key name to avoid conflicts
 )
 
-
-# Update session state when user types manually
-if query != st.session_state.get('query_input', ''):
-    st.session_state['query_input'] = query
-
+# Update session state when user types
+if query != st.session_state.query_input:
+    st.session_state.query_input = query
 
 # Search button
 if st.button("🔍 Search", key="search_btn"):
@@ -375,7 +409,8 @@ if st.button("🔍 Search", key="search_btn"):
                     ai_response = response_data.get('response', '')
                     is_resume = response_data.get('is_resume_related', False)
 
-                    st.markdown("### 🎯 Response")
+                    # Custom styled response header
+                    st.markdown('<div class="response-header">🎯 Response</div>', unsafe_allow_html=True)
                     st.markdown(f'<div class="response-box">{ai_response}</div>', unsafe_allow_html=True)
 
                     # Optional: Show if resume-related (for debugging)
@@ -389,5 +424,3 @@ if st.button("🔍 Search", key="search_btn"):
                 st.error(f"❌ Connection error: {str(e)}")
     else:
         st.warning("⚠️ Please enter a query to search!")
-
-st.markdown('</div>', unsafe_allow_html=True)
