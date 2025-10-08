@@ -1,52 +1,26 @@
+cat > .gitignore << 'EOF'
+# Environment variables - KEEP THESE BLOCKED
 .env
 .env.local
 .env.*.local
 *.env
-# Ensure your .gitignore includes:
 
+# Python cache - KEEP THESE BLOCKED  
 __pycache__/
 *.pyc
-.streamlit/secrets.toml
-.gitignore
-*.pdf
-*.docx
-*.doc
-*.txt
-resume.*
-Resume.*
-CV.*
-*linkedin*
-*LinkedIn*
-MT24147_Yash*
-
-*.pdf
-*.docx
-*.doc
-*.txt
-resume.*
-Resume.*
-CV.*
-*linkedin*
-*LinkedIn*
-MT24147_Yash*
-faiss_resume_vectorstore/
-faiss_resume_db/
-*.faiss
-*.pkl
-docstore.json
-index.faiss
-index.pkl
+*.py[cod]
+*$py.class
+*.so
 .venv/
 venv/
 ENV/
 env/
 .virtualenv/
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-*.egg-info/
-.pytest_cache/
+
+# Streamlit secrets - KEEP THESE BLOCKED
+.streamlit/secrets.toml
+
+# AI/ML model cache - KEEP THESE BLOCKED
 models/
 .cache/
 sentence_transformers/
@@ -54,17 +28,28 @@ transformers_cache/
 huggingface/
 *.bin
 *.safetensors
-.ipynb_checkpoints/
-*.ipynb
-checkpoints/
+faiss_resume_vectorstore/
+faiss_resume_db/
+*.faiss
+*.pkl
+docstore.json
+index.faiss
+index.pkl
+
+# Development files - KEEP THESE BLOCKED
 .vscode/
 .idea/
 *.sublime-project
-*.swp
-.DS_Store          # macOS
-Thumbs.db          # Windows
-Desktop.ini        # Windows
-._*                # macOS resource forks
+.ipynb_checkpoints/
+*.ipynb
+checkpoints/
+.pytest_cache/
+
+# System files - KEEP THESE BLOCKED
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
 *.log
 logs/
 *.log.*
@@ -73,5 +58,15 @@ logs/
 *.bak
 *.swp
 .~*
-.DS_Store
-.gitignore
+
+# Personal documents - KEEP THESE BLOCKED (but allow deployment resume)
+*linkedin*
+*LinkedIn*
+MT24147_Yash*
+
+# REMOVED PROBLEMATIC LINES:
+# *.txt         # ← REMOVED - This was blocking requirements.txt!
+# resume.*      # ← REMOVED - This was blocking resume.txt!
+# Resume.*      # ← REMOVED - This was blocking resume files!
+# .gitignore    # ← REMOVED - This was blocking .gitignore!
+EOF
