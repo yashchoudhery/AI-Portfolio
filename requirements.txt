@@ -1,8 +1,8 @@
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
-pydantic==2.5.0
+pydantic==2.9.2
 python-dotenv==1.0.0
-langchain==0.1.0
+langchain==0.3.0
 langchain-groq
 langchain-openai
 langchain-community
@@ -13,7 +13,7 @@ PyPDF2==3.0.1
 python-docx==1.1.0
 docx2txt==0.8
 requests==2.31.0
-sentence-transformers==2.2.2
-transformers
-torch
+sentence-transformers==2.7.0
+transformers==4.44.0
+torch==2.4.0
 langchain-text-splitters
