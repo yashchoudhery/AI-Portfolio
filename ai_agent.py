@@ -92,14 +92,7 @@ class ResumeProcessor:
                 raise ValueError("Resume must be .pdf, .doc, .docx, or .txt file")
 
             documents = loader.load()
-            print("\n" + "=" * 50)
-            print("🔍 DEBUGGING: Extracted Content")
-            print("=" * 50)
-            for i, doc in enumerate(documents):
-                print(f"\n--- Page/Section {i + 1} ---")
-                print(doc.page_content[:500])  # Print first 500 characters
-                print("...")
-            print("=" * 50 + "\n")
+            print(f"\n📄 Loaded {len(documents)} document(s)")
 
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=1000,  # INCREASED from 500 to 1000
